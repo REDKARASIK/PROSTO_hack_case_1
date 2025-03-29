@@ -1,0 +1,50 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 20px;
+}
+
+.top-menu {
+  background-color: #eee;
+  padding: 10px;
+}
+
+.top-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.top-menu li {
+  display: inline-block;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.content {
+  overflow-y: auto;
+  height: calc(100vh - 100px);
+  background-color: #fff;
+  padding: 10px;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list li {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+}
+
+.list button {
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
