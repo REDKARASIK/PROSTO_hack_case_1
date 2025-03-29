@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,14 +21,20 @@ public class EventService {
 
     @Transactional
     public EventResponse createEvent(EventRequest request) {
-        if (request.getEndTime().isBefore(request.getStartTime())) {
+        // Проверка, что время окончания не раньше времени начала
+        LocalDateTime startDateTime = LocalDateTime.of(request.getDateStart(), request.getTimeStart());
+        LocalDateTime endDateTime = LocalDateTime.of(request.getDateEnd(), request.getTimeEnd());
+
+        if (endDateTime.isBefore(startDateTime)) {
             throw new IllegalArgumentException("Время окончания не может быть раньше времени начала");
         }
 
         EventEntity event = new EventEntity();
         event.setTitle(request.getTitle());
-        event.setStartTime(request.getStartTime());
-        event.setEndTime(request.getEndTime());
+        event.setDateStart(request.getDateStart());
+        event.setTimeStart(request.getTimeStart());
+        event.setDateEnd(request.getDateEnd());
+        event.setTimeEnd(request.getTimeEnd());
 
         EventEntity savedEvent = eventRepository.save(event);
         return convertToDto(savedEvent);
@@ -51,8 +60,10 @@ public class EventService {
                 .orElseThrow(() -> new RuntimeException("Событие не найдено"));
 
         event.setTitle(request.getTitle());
-        event.setStartTime(request.getStartTime());
-        event.setEndTime(request.getEndTime());
+        event.setDateStart(request.getDateStart());
+        event.setTimeStart(request.getTimeStart());
+        event.setDateEnd(request.getDateEnd());
+        event.setTimeEnd(request.getTimeEnd());
 
         EventEntity updatedEvent = eventRepository.save(event);
         return convertToDto(updatedEvent);
@@ -67,8 +78,10 @@ public class EventService {
         EventResponse dto = new EventResponse();
         dto.setId(entity.getId());
         dto.setTitle(entity.getTitle());
-        dto.setStartTime(entity.getStartTime());
-        dto.setEndTime(entity.getEndTime());
+        dto.setDateStart(entity.getDateStart());
+        dto.setTimeStart(entity.getTimeStart());
+        dto.setDateEnd(entity.getDateEnd());
+        dto.setTimeEnd(entity.getTimeEnd());
         return dto;
     }
 }

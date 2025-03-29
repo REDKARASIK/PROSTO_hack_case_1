@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/events")
+@RequestMapping("/api/events-info")
 public class EventController {
     private final EventService eventService;
 
@@ -50,4 +50,20 @@ public class EventController {
         eventService.deleteEvent(id);
         return ResponseEntity.noContent().build();
     }
+
+//    // Дополнительные endpoints для работы с датами и временем
+//    @GetMapping("/between-dates")
+//    public ResponseEntity<List<EventResponse>> getEventsBetweenDates(
+//            @RequestParam("startDate") String startDate,
+//            @RequestParam("endDate") String endDate) {
+//        List<EventResponse> events = eventService.getEventsBetweenDates(startDate, endDate);
+//        return ResponseEntity.ok(events);
+//    }
+//
+//    @GetMapping("/upcoming")
+//    public ResponseEntity<List<EventResponse>> getUpcomingEvents(
+//            @RequestParam(value = "days", defaultValue = "7") int days) {
+//        List<EventResponse> events = eventService.getUpcomingEvents(days);
+//        return ResponseEntity.ok(events);
+//    }
 }
